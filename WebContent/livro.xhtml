@@ -10,7 +10,7 @@
 <ui:composition template="_template.xhtml">
 	<ui:define name="titulo">Novo Livro</ui:define>
 	<ui:define name="conteudo">
-		<h:form>
+		<h:form id="formTabelaAutores">
 			<h:messages id="messages" />
 			<p:fieldset legend="Dados do Livro">
 				<p:panelGrid columns="2">
@@ -89,41 +89,29 @@
 		<br />
 		<h:form id="formTabelaLivros">
 			<p:fieldset legend="Livros Gravados">
-				<p:dataTable id="tabelaLivros" value="#{livroBean.livros}"
-					var="livro">
-					<p:column>
-						<p:outputLabel value="Titulo: " for="livro_titulo"
-							style="font-weight: bold" />
+				<p:dataTable id="tabelaLivros" value="#{livroBean.livroDataModelo}"
+					var="livro" paginator="true" paginatorPosition="bottom" rows="4" lazy="true">
+					<p:column headerText="Titulo" sortBy="#{livro.titulo}" filterBy="#{livro.titulo}" filterMatchMode="startsWith">						
 						<h:outputText id="livro_titulo" value="#{livro.titulo}" />
 					</p:column>
-					<p:column>
-						<p:outputLabel value="Isbn: " for="livro_isbn"
-							style="font-weight: bold" />
+					<p:column headerText="Isbn">						
 						<h:outputText id="livro_isbn" value="#{livro.isbn}" />
 					</p:column>
-					<p:column>
-						<p:outputLabel value="Preco: " for="livro_preco"
-							style="font-weight: bold" />
+					<p:column headerText="Preco">						
 						<h:outputText id="livro_preco" value="#{livro.preco}" />
 					</p:column>
-					<p:column>
-						<p:outputLabel value="Data de Lancamento: "
-							for="livro_dataLancamento" style="font-weight: bold" />
+					<p:column headerText="Data de Lancamento">						
 						<h:outputText id="livro_dataLancamento"
 							value="#{livro.dataLancamento}">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					<p:column>
-						<p:outputLabel value="Alterar livro: " for="altera"
-							style="font-weight: bold" />
+					<p:column headerText="Alterar">						
 						<p:commandButton id="altera" value="Alterar"
-							action="#{livroBean.carregar(livro)}" update="tabelaLivros" />
+							action="#{livroBean.carregar(livro)}" update=":formTabelaAutores" />
 					</p:column>
-					<p:column>
-						<p:outputLabel value="Remover livro: " for="remove"
-							style="font-weight: bold" />
+					<p:column headerText="Remover">						
 						<p:commandButton id="remove" value="Remove"
 							action="#{livroBean.remover(livro)}" update="tabelaLivros"/>
 					</p:column>

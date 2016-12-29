@@ -34,4 +34,13 @@ public class LivroDAO extends DAO<Livro> {
 		return query.getResultList();
 	}
 	
+	public List<Livro> obterTodosLivrosPaginado(int inicio, int quantidade){
+		
+		TypedQuery<Livro> query = em.createNamedQuery(Livro.OBTER_TODOS_LIVROS, Livro.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		return query.getResultList();
+		
+	}
+	
 }
